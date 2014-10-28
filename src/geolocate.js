@@ -1,6 +1,6 @@
 (function(window, navigator) {
     var exports = {},
-        watcherId = 0,
+        counterId = 0,
         successData = {
             accuracy: 50,
             altitude: null,
@@ -15,7 +15,7 @@
             message: 'The acquisition of the geolocation information failed because the page didn\'t have the permission to do it.'
         };
 
-    var getCurrentPositionArguments = [],
+    var getCurrentPositionArguments = {},
         watchPositionArguments = {},
         _navigatorGeolocation,
         _geolocate = window.geolocate;
@@ -41,17 +41,22 @@
 
         changeGeolocation({
             getCurrentPosition: function(success, error, opt) {
-                getCurrentPositionArguments.push(arguments);
+                counterId++;
+                getCurrentPositionArguments[counterId] = arguments;
             },
             watchPosition: function(success, error, opt) {
-                getCurrentPositionArguments.push(arguments);
-                watcherId++;
-                watchPositionArguments[watcherId] = arguments;
-                return watcherId;
+                counterId++;
+                getCurrentPositionArguments[counterId] = arguments;
+                watchPositionArguments[counterId] = arguments;
+                return counterId;
             },
             clearWatch: function(i) {
                 if (watchPositionArguments[i]) {
                     delete watchPositionArguments[i];
+
+                    if (getCurrentPositionArguments[i]) {
+                        delete getCurrentPositionArguments[i];
+                    }
                 }
             }
         });
@@ -66,7 +71,7 @@
             delete navigator.geolocation;
         }
 
-        getCurrentPositionArguments = [];
+        getCurrentPositionArguments = {};
         watchPositionArguments = {};
 
         return this;
@@ -127,35 +132,25 @@
     };
 
     exports.send = function(options) {
-        var max = getCurrentPositionArguments.length,
-            i;
-
-        if (max === 0) return;
-
-        for (i = 0; i < max; i++) {
+        for (var i in getCurrentPositionArguments) {
             if (typeof getCurrentPositionArguments[i][0] === 'function') {
                 getCurrentPositionArguments[i][0](getSuccessData(options));
             }
         }
 
-        getCurrentPositionArguments = [];
+        getCurrentPositionArguments = {};
 
         return this;
     };
 
     exports.sendError = function() {
-        var max = getCurrentPositionArguments.length,
-            i;
-
-        if (max === 0) return;
-
-        for (i = 0; i < max; i++) {
+        for (var i in getCurrentPositionArguments) {
             if (typeof getCurrentPositionArguments[i][1] === 'function') {
                 getCurrentPositionArguments[i][1](getErrorData(options));
             }
         }
 
-        getCurrentPositionArguments = [];
+        getCurrentPositionArguments = {};
 
         return this;
     };
@@ -164,6 +159,10 @@
         for (var i in watchPositionArguments) {
             if (typeof watchPositionArguments[i][0] === 'function') {
                 watchPositionArguments[i][0](getSuccessData(options));
+            }
+
+            if (getCurrentPositionArguments[i]) {
+                delete getCurrentPositionArguments[i];
             }
         }
 
@@ -174,6 +173,10 @@
         for (var i in watchPositionArguments) {
             if (typeof watchPositionArguments[i][1] === 'function') {
                 watchPositionArguments[i][1](getErrorData(options));
+            }
+
+            if (getCurrentPositionArguments[i]) {
+                delete getCurrentPositionArguments[i];
             }
         }
 

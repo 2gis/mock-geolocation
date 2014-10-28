@@ -20,7 +20,7 @@ geolocate.restore();
 ###.restore()
 Возвращает ```navigator.geolocation``` в исходное состояние
 ###.send(options)
-Обновляет текущую позицию из ```options``` и вызывает единожды success callback методов [getCurrentPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.getCurrentPosition) и watchPosition.
+Обновляет текущую позицию из ```options``` и вызывает единожды ```success callback``` методов [getCurrentPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.getCurrentPosition) и [watchPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.watchPosition).
 В опциях могут задаваться все параметры [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) и [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
 ```javascript
 navigator.geolocation.getCurrentPosition(function(position) {
