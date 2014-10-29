@@ -1,7 +1,8 @@
 #Geolocate
-Mock for ```navigator.geolocation```.
+Мок для ```navigator.geolocation```.
+Модуль подменяет стандартную геолокацию браузера.
 
-###[Russian readme](https://github.com/2gis/geolocate/blob/master/README_RU.md)###
+###[English readme](https://github.com/2gis/geolocate/blob/master/README_EN.md)###
 
 ###[Demo](http://2gis.github.io/geolocate/)###
 
@@ -19,27 +20,27 @@ geolocate.send({lat: point[0], lng: point[1]});
 
 geolocate.restore();
 ```
-## Installation
-Manually:
+## Установка
+Вручную:
 ```html
 <script src="geolocate.js"></script>
 ```
-From ```npm```:
+Из ```npm```:
 ```
 npm install geolocate.js
 ```
-As ```CommonJS``` or ```AMD``` module:
+Как ```CommonJS``` или ```AMD``` модуль:
 ```javascript
 var geolocate = require('./geolocate.js');
 ```
 ##API
 ###.use()
-Replace the native ```navigator.geolocation``` object
+Заменяет объект ```navigator.geolocation```
 ###.restore()
-Restore ```navigator.geolocation``` in original state
+Возвращает ```navigator.geolocation``` в исходное состояние
 ###.send([options])
-This method emulates the finding position after calling [getCurrentPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.getCurrentPosition) and [watchPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.watchPosition) method.
-Updates position from ```options``` which may include the following parameters from [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) and [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
+Имитирует нахождение позиции после вызова метода [getCurrentPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.getCurrentPosition) и [watchPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.watchPosition).
+Обновляет текущую позицию из ```options```, в которых могут задаваться все параметры [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) и [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
 ```javascript
 navigator.geolocation.getCurrentPosition(function(position) {
   console.log(position);
@@ -71,7 +72,7 @@ navigator.geolocation.getCurrentPosition(function(position) {
 
 geolocate.send();
 
-/* Show same position {
+/* Выведит такую же позицию {
   coords: {
     accuracy: 5,
     altitude: null
@@ -85,8 +86,8 @@ geolocate.send();
 } */
 ```
 ###.change(options)
-Change current position and call ```success callback``` of ```watchPosition``` method.
-Updates position from ```options``` which may include the following parameters from [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) and [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
+Меняет текущую позицию и вызывает ```success callback``` метода ```watchPosition```.
+Обновляет текущую позицию из ```options```, в которых могут задаваться все параметры [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) и [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
 ```javascript
 navigator.geolocation.watchPosition(function(position) {
   console.log(position.coords.latitude + ',' + position.coords.longitude);
@@ -102,8 +103,8 @@ geolocate.change({lat: 25});
 // 25, 15
 ```
 ###.sendError([options])
-Call ```error callback``` of ```getCurrentPosition``` method.
+Вызывает ```error callback``` метода ```getCurrentPosition```.  
 В ```options``` задаются параметры [code и message](https://developer.mozilla.org/en-US/docs/Web/API/PositionError).
 ###.changeError([options])
-Call ```error callback``` of ```watchPosition``` method.
+Вызывает ```error callback``` метода ```watchPosition```.
 В ```options``` задаются параметры [code и message](https://developer.mozilla.org/en-US/docs/Web/API/PositionError).

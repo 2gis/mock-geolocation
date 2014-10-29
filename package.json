@@ -1,6 +1,6 @@
 {
   "name": "geolocate.js",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "author": {
     "name": "Trufi",
     "email": "stevemyz@gmail.com"
@@ -20,7 +20,5 @@
     "gulp": "~3.8.8",
     "gulp-uglify": "~1.0.1",
     "gulp-rename": "~1.2.0"
-  },
-  "readme": "Mock for navigator.geolocation",
-  "readmeFilename": "README_EN.md"
+  }
 }
