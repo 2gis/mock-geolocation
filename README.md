@@ -1,7 +1,9 @@
 #Geolocate
 Mock for ```navigator.geolocation```.
 
-[Russian readme](https://github.com/2gis/geolocate/blob/master/README_RU.md)
+###[Russian readme](https://github.com/2gis/geolocate/blob/master/README_RU.md)###
+
+###[Demo](http://2gis.github.io/geolocate/)###
 
 ```javascript
 var point = [54.980206086231, 82.898068362003];
