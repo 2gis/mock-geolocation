@@ -76,28 +76,31 @@
         return this;
     };
 
-    var getSuccessData = function(options) {
-        options = options || {};
-
-        var data = {
-            coords: {}
-        }, i;
-
-        for (i in successData) {
+    function changeSuccessData(options) {
+        // copy available parameter to successData
+        for (var i in successData) {
             if (options.hasOwnProperty(i)) {
                 successData[i] = options[i];
             }
         }
 
+        // lat and lng are available parameters too
         if (options.lat !== undefined) {
             successData.latitude = options.lat;
         }
-
         if (options.lng !== undefined) {
             successData.longitude = options.lng;
         }
+    }
 
-        for (i in successData) {
+    function getRequestData(options) {
+        options = options || {};
+
+        var data = {
+            coords: {}
+        };
+
+        for (var i in successData) {
             data.coords[i] = successData[i];
         }
 
@@ -108,9 +111,9 @@
         }
 
         return data;
-    };
+    }
 
-    var getErrorData = function(options) {
+    function getErrorData(options) {
         options = options || {};
 
         var data = {};
@@ -128,12 +131,16 @@
         }
 
         return data;
-    };
+    }
 
     exports.send = function(options) {
+        if (options) {
+            changeSuccessData(options);
+        }
+
         for (var i in getCurrentPositionArguments) {
             if (typeof getCurrentPositionArguments[i][0] === 'function') {
-                getCurrentPositionArguments[i][0](getSuccessData(options));
+                getCurrentPositionArguments[i][0](getRequestData(options));
             }
         }
 
@@ -142,7 +149,7 @@
         return this;
     };
 
-    exports.sendError = function() {
+    exports.sendError = function(options) {
         for (var i in getCurrentPositionArguments) {
             if (typeof getCurrentPositionArguments[i][1] === 'function') {
                 getCurrentPositionArguments[i][1](getErrorData(options));
@@ -155,9 +162,13 @@
     };
 
     exports.change = function(options) {
+        if (options) {
+            changeSuccessData(options);
+        }
+
         for (var i in watchPositionArguments) {
             if (typeof watchPositionArguments[i][0] === 'function') {
-                watchPositionArguments[i][0](getSuccessData(options));
+                watchPositionArguments[i][0](getRequestData(options));
             }
 
             if (getCurrentPositionArguments[i]) {

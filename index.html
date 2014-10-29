@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>2Gis Geolocation Demo</title>
+    <script src="http://maps.api.2gis.ru/2.0/loader.js" data-id="dgLoader"></script>
+    <script src="./src/geolocate.js"></script>
+    <style>
+        html {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            margin: 0 auto;
+            width: 50%;
+            height: 100%;
+        }
+        #map {
+            width: 100%;
+            height: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <ul>
+        <li>
+            <input id='search' type="button" value="Start searching location"/>
+            <input id='watch' type="button" value="Start watching location"/>
+            <input id='watchStop' type="button" value="Stop watching location"/>
+        </li>
+        <br />
+        <li>
+            <input id='send' type="button" value="Send"/>
+            <code>
+                geolocate.send({lat: 54.9805, lng: 82.8985});
+            </code>
+        </li>
+        <li>
+            <input id='change1' type="button" value="Change"/>
+            <code>
+                geolocate.change({lat: 54.9810, lng: 82.8990});
+            </code>
+        </li>
+        <li>
+            <input id='change2' type="button" value="Change"/>
+            <code>
+                geolocate.change({lat: 54.9810, lng: 82.8995});
+            </code>
+        </li>
+    </ul>
+
+    <code id="log"></code>
+
+    <script>
+        var logContainer = document.getElementById('log'),
+            map,
+            watchId;
+
+        function log(obj) {
+            console.log(obj);
+            logContainer.innerHTML = JSON.stringify(obj)
+                .replace(/,/g, ',<br />')
+                .replace(/"/g, '')
+                .replace(/{/g, '{<br/>')
+                .replace(/:/g, ': ')
+                .replace(/}/g, '<br />}');
+        }
+
+        DG.then(function() {
+            geolocate.use();
+
+            map = new DG.Map('map', {
+                center: [54.9800, 82.8980],
+                zoom: 18,
+                locationControl: true,
+                zoomControl: false,
+                fullscreenControl: false
+            });
+
+            document.getElementById('search').onclick = function() {
+                map.locationControl.fire('click');
+
+                navigator.geolocation.getCurrentPosition(function(data) {
+                    log(data);
+                    map.locationControl.fire('click');
+                });
+            };
+
+            document.getElementById('watch').onclick = function() {
+                map.locationControl.fire('click');
+
+                watchId = navigator.geolocation.watchPosition(function(data) {
+                    log(data);
+                });
+            };
+
+            document.getElementById('watchStop').onclick = function() {
+                if (map.locationControl._active) {
+                    map.locationControl.fire('click');
+                }
+
+                navigator.geolocation.clearWatch(watchId);
+            };
+
+            document.getElementById('send').onclick = function() {
+                geolocate.send({lat: 54.9805, lng: 82.8985});
+            };
+
+            document.getElementById('change1').onclick = function() {
+                geolocate.change({lat: 54.9810, lng: 82.8990});
+            };
+
+            document.getElementById('change2').onclick = function() {
+                geolocate.change({lat: 54.9810, lng: 82.8995});
+            };
+        });
+    </script>
+</body>
+</html>
