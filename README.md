@@ -1,4 +1,5 @@
 #Geolocate
+Мок для ```navigator.geolocation```
 Модуль подменяет стандартную геолокацию браузера
 ```javascript
 var point = [54.980206086231, 82.898068362003];
@@ -19,9 +20,9 @@ geolocate.restore();
 Заменяет ```navigator.geolocation```
 ###.restore()
 Возвращает ```navigator.geolocation``` в исходное состояние
-###.send(options)
-Обновляет текущую позицию из ```options``` и вызывает единожды ```success callback``` методов [getCurrentPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.getCurrentPosition) и [watchPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.watchPosition).
-В опциях могут задаваться все параметры [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) и [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
+###.send([options])
+Имитирует нахождение позиции после вызова метода [getCurrentPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.getCurrentPosition) и [watchPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.watchPosition).
+Обновляет текущую позицию из ```options```. В опциях могут задаваться все параметры [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) и [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
 ```javascript
 navigator.geolocation.getCurrentPosition(function(position) {
   console.log(position);
@@ -46,7 +47,7 @@ geolocate.send();
 // {coords: {accuracy: 5, altitude: null, altitudeAccuracy: null, heading: null, latitude: 50…}, timestamp: 3000}
 ```
 ###.change(options)
-Меняет текущую позицию и вызывает success callback метода [watchPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.watchPosition).
+Меняет текущую позицию и вызывает ```success callback``` метода ```watchPosition```
 ```javascript
 navigator.geolocation.watchPosition(function(position) {
   console.log(position.coords.latitude);
@@ -59,6 +60,6 @@ geolocate.change({lat: 10});
 // 10
 ```
 ###.sendError(options)
-TODO
+Вызывает ```error callback``` метода ```getCurrentPosition```
 ###.changeError(options)
-TODO
+Вызывает ```error callback``` метода ```watchPosition```

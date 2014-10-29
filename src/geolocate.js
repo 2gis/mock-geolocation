@@ -17,8 +17,7 @@
 
     var getCurrentPositionArguments = {},
         watchPositionArguments = {},
-        _navigatorGeolocation,
-        _geolocate = window.geolocate;
+        _navigatorGeolocation;
 
     var changeGeolocation = function(object) {
         if (Object.defineProperty) {
@@ -183,15 +182,32 @@
         return this;
     };
 
-    exports.noConflict = function() {
-        if (_geolocate !== undefined) {
-            window.geolocate = _geolocate;
-        } else {
-            delete window.geolocate;
-        }
+    function expose() {
+        var _geolocate = window.geolocate;
 
-        return exports;
-    };
+        exports.noConflict = function() {
+            if (_geolocate !== undefined) {
+                window.geolocate = _geolocate;
+            } else {
+                delete window.geolocate;
+            }
 
-    window.geolocate = exports;
+            return exports;
+        };
+
+        window.geolocate = exports;
+    }
+
+    // define for Node module pattern loaders, including Browserify
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        module.exports = exports;
+
+    // define as an AMD module
+    } else if (typeof define === 'function' && define.amd) {
+        define(exports);
+
+    // define as a global variable, saving the original to restore later if needed
+    } else if (typeof window !== 'undefined') {
+        expose();
+    }
 })(window, navigator);
