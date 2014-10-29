@@ -30,7 +30,7 @@ npm install geolocate.js
 ```
 As ```CommonJS``` or ```AMD``` module:
 ```javascript
-var geolocate = require('./geolocate.js');
+var geolocate = require('geolocate.js');
 ```
 ##API
 ###.use()
@@ -89,7 +89,7 @@ Change current position and call ```success callback``` of ```watchPosition``` m
 Updates position from ```options``` which may include the following parameters from [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) and [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
 ```javascript
 navigator.geolocation.watchPosition(function(position) {
-  console.log(position.coords.latitude + ',' + position.coords.longitude);
+  console.log(position.coords.latitude + ', ' + position.coords.longitude);
 });
 
 geolocate.send();
@@ -103,7 +103,7 @@ geolocate.change({lat: 25});
 ```
 ###.sendError([options])
 Call ```error callback``` of ```getCurrentPosition``` method.
-В ```options``` задаются параметры [code и message](https://developer.mozilla.org/en-US/docs/Web/API/PositionError).
+```options``` may include the parameters [code and message](https://developer.mozilla.org/en-US/docs/Web/API/PositionError).
 ###.changeError([options])
 Call ```error callback``` of ```watchPosition``` method.
-В ```options``` задаются параметры [code и message](https://developer.mozilla.org/en-US/docs/Web/API/PositionError).
+```options``` may include the parameters [code and message](https://developer.mozilla.org/en-US/docs/Web/API/PositionError).

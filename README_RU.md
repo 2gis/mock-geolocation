@@ -31,7 +31,7 @@ npm install geolocate.js
 ```
 Как ```CommonJS``` или ```AMD``` модуль:
 ```javascript
-var geolocate = require('./geolocate.js');
+var geolocate = require('geolocate.js');
 ```
 ##API
 ###.use()
@@ -90,7 +90,7 @@ geolocate.send();
 Обновляет текущую позицию из ```options```, в которых могут задаваться все параметры [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) и [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
 ```javascript
 navigator.geolocation.watchPosition(function(position) {
-  console.log(position.coords.latitude + ',' + position.coords.longitude);
+  console.log(position.coords.latitude + ', ' + position.coords.longitude);
 });
 
 geolocate.send();
