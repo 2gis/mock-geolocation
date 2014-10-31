@@ -6,26 +6,32 @@
     <script src="http://maps.api.2gis.ru/2.0/loader.js" data-id="dgLoader"></script>
     <script src="./src/geolocate.js"></script>
     <style>
-        html {
-            margin: 0;
-            width: 100%;
-            height: 100%;
-        }
-        body {
-            margin: 0 auto;
-            width: 50%;
-            height: 100%;
-        }
-        #map {
-            width: 100%;
-            height: 50%;
-        }
+        html {margin: 0; width: 100%; height: 100%;}
+        body {margin: 0 auto; width: 50%; height: 100%;}
+        #map {width: 100%; height: 50%;}
+        #geolocateUse {color: #1000d4; font-weight: bold;}
+        #log {display: block; height: 220px;}
     </style>
 </head>
 <body>
     <div id="map"></div>
 
     <ul>
+        <li>Geolocate use: <span id="geolocateUse">true</span></li>
+        <br />
+        <li>
+            <input id='use' type="button" value="Use"/>
+            <code>
+                geolocate.use();
+            </code>
+        </li>
+        <li>
+            <input id='restore' type="button" value="Restore"/>
+            <code>
+                geolocate.restore();
+            </code>
+        </li>
+        <br />
         <li>
             <input id='search' type="button" value="Start searching location"/>
             <input id='watch' type="button" value="Start watching location"/>
@@ -50,12 +56,19 @@
                 geolocate.change({lat: 54.9810, lng: 82.8995});
             </code>
         </li>
+        <li>
+            <input id='change3' type="button" value="Change"/>
+            <code>
+                geolocate.change({lat: 54.9815, lng: 82.9005});
+            </code>
+        </li>
     </ul>
 
     <code id="log"></code>
 
     <script>
         var logContainer = document.getElementById('log'),
+            geolocateUseContainer = document.getElementById('geolocateUse'),
             map,
             watchId;
 
@@ -67,6 +80,16 @@
                 .replace(/{/g, '{<br/>')
                 .replace(/:/g, ': ')
                 .replace(/}/g, '<br />}');
+        }
+
+        function clearLog() {
+            logContainer.innerHTML = '';
+        }
+
+        function geolocation2GisStop() {
+            if (map.locationControl._active) {
+                map.locationControl.fire('click');
+            }
         }
 
         DG.then(function() {
@@ -85,7 +108,10 @@
 
                 navigator.geolocation.getCurrentPosition(function(data) {
                     log(data);
-                    map.locationControl.fire('click');
+
+                    setTimeout(function() {
+                        geolocation2GisStop();
+                    }, 0);
                 });
             };
 
@@ -98,23 +124,47 @@
             };
 
             document.getElementById('watchStop').onclick = function() {
-                if (map.locationControl._active) {
-                    map.locationControl.fire('click');
-                }
+                geolocation2GisStop();
 
                 navigator.geolocation.clearWatch(watchId);
             };
 
+            document.getElementById('use').onclick = function() {
+                geolocation2GisStop();
+                geolocateUseContainer.innerHTML = 'true';
+
+                geolocate.use();
+            };
+
+            document.getElementById('restore').onclick = function() {
+                geolocation2GisStop();
+                geolocateUseContainer.innerHTML = 'false';
+
+                geolocate.restore();
+            };
+
             document.getElementById('send').onclick = function() {
+                clearLog();
+
                 geolocate.send({lat: 54.9805, lng: 82.8985});
             };
 
             document.getElementById('change1').onclick = function() {
+                clearLog();
+
                 geolocate.change({lat: 54.9810, lng: 82.8990});
             };
 
             document.getElementById('change2').onclick = function() {
+                clearLog();
+
                 geolocate.change({lat: 54.9810, lng: 82.8995});
+            };
+
+            document.getElementById('change3').onclick = function() {
+                clearLog();
+
+                geolocate.change({lat: 54.9815, lng: 82.9005});
             };
         });
     </script>
