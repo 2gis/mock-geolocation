@@ -1,10 +1,10 @@
-#Geolocate
+# Mock-geolocation
 Мок для ```navigator.geolocation```.
 Модуль подменяет стандартную геолокацию браузера.
 
-###[English readme](https://github.com/2gis/geolocate/blob/master/README_EN.md)###
+### [English readme](https://github.com/2gis/mock-geolocation/blob/master/README_EN.md)###
 
-###[Demo](http://2gis.github.io/geolocate/)###
+### [Demo](http://2gis.github.io/geolocate/)###
 
 ```javascript
 var point = [54.980206086231, 82.898068362003];
@@ -27,18 +27,18 @@ geolocate.restore();
 ```
 Из ```npm```:
 ```
-npm install geolocate.js
+npm install mock-geolocation
 ```
 Как ```CommonJS``` или ```AMD``` модуль:
 ```javascript
-var geolocate = require('geolocate.js');
+var geolocate = require('mock-geolocation');
 ```
-##API
-###.use()
+## API
+### .use()
 Заменяет объект ```navigator.geolocation```
-###.restore()
+### .restore()
 Возвращает ```navigator.geolocation``` в исходное состояние
-###.send([options])
+### .send([options])
 Имитирует нахождение позиции после вызова метода [getCurrentPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.getCurrentPosition) и [watchPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.watchPosition).
 Обновляет текущую позицию из ```options```, в которых могут задаваться все параметры [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) и [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
 ```javascript
@@ -85,7 +85,7 @@ geolocate.send();
   timestamp: 3000
 } */
 ```
-###.change(options)
+### .change(options)
 Меняет текущую позицию и вызывает ```success callback``` метода ```watchPosition```.
 Обновляет текущую позицию из ```options```, в которых могут задаваться все параметры [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) и [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
 ```javascript
@@ -102,9 +102,9 @@ geolocate.change({lat: 10, lng: 15});
 geolocate.change({lat: 25});
 // 25, 15
 ```
-###.sendError([options])
+### .sendError([options])
 Вызывает ```error callback``` метода ```getCurrentPosition```.  
 В ```options``` задаются параметры [code и message](https://developer.mozilla.org/en-US/docs/Web/API/PositionError).
-###.changeError([options])
+### .changeError([options])
 Вызывает ```error callback``` метода ```watchPosition```.
 В ```options``` задаются параметры [code и message](https://developer.mozilla.org/en-US/docs/Web/API/PositionError).

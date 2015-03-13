@@ -6,7 +6,12 @@ gulp.task('uglify', function() {
     return gulp.src('src/geolocate.js')
         .pipe(uglify())
         .pipe(rename('geolocate.min.js'))
-        .pipe(gulp.dest('src'));
+        .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['uglify']);
+gulp.task('copy', function() {
+    return gulp.src('src/geolocate.js')
+        .pipe(gulp.dest('dist'));
+})
+
+gulp.task('default', ['uglify', 'copy']);

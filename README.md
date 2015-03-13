@@ -1,9 +1,9 @@
-#Geolocate
+# Mock-geolocation
 Mock for ```navigator.geolocation```.
 
-###[Russian readme](https://github.com/2gis/geolocate/blob/master/README_RU.md)###
+### [Russian readme](https://github.com/2gis/mock-geolocation/blob/master/README_RU.md) ###
 
-###[Demo](http://2gis.github.io/geolocate/)###
+### [Demo](http://2gis.github.io/geolocate/) ###
 
 ```javascript
 var point = [54.980206086231, 82.898068362003];
@@ -26,18 +26,18 @@ Manually:
 ```
 From ```npm```:
 ```
-npm install geolocate.js
+npm install mock-geolocation
 ```
 As ```CommonJS``` or ```AMD``` module:
 ```javascript
-var geolocate = require('geolocate.js');
+var geolocate = require('mock-geolocation');
 ```
-##API
-###.use()
+## API
+### .use()
 Replace the native ```navigator.geolocation``` object
-###.restore()
+### .restore()
 Restore ```navigator.geolocation``` in original state
-###.send([options])
+### .send([options])
 This method emulates the finding position after calling [getCurrentPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.getCurrentPosition) and [watchPosition](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.watchPosition) method.
 Updates position from ```options``` which may include the following parameters from [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) and [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
 ```javascript
@@ -84,7 +84,7 @@ geolocate.send();
   timestamp: 3000
 } */
 ```
-###.change(options)
+### .change(options)
 Change current position and call ```success callback``` of ```watchPosition``` method.
 Updates position from ```options``` which may include the following parameters from [positions.coords](https://developer.mozilla.org/en-US/docs/Web/API/Coordinates) and [timestamp](https://developer.mozilla.org/en-US/docs/Web/API/Position.timestamp).
 ```javascript
@@ -101,9 +101,9 @@ geolocate.change({lat: 10, lng: 15});
 geolocate.change({lat: 25});
 // 25, 15
 ```
-###.sendError([options])
+### .sendError([options])
 Call ```error callback``` of ```getCurrentPosition``` method.
 ```options``` may include the parameters [code and message](https://developer.mozilla.org/en-US/docs/Web/API/PositionError).
-###.changeError([options])
+### .changeError([options])
 Call ```error callback``` of ```watchPosition``` method.
 ```options``` may include the parameters [code and message](https://developer.mozilla.org/en-US/docs/Web/API/PositionError).
