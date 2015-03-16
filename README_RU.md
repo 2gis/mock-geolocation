@@ -2,9 +2,9 @@
 Мок для ```navigator.geolocation```.
 Модуль подменяет стандартную геолокацию браузера.
 
-### [English readme](https://github.com/2gis/mock-geolocation/blob/master/README.md)###
+### [English readme](https://github.com/2gis/mock-geolocation/blob/master/README.md) ###
 
-### [Demo](http://2gis.github.io/geolocate/)###
+### [Demo](http://2gis.github.io/mock-geolocation/) ###
 
 ```javascript
 var point = [54.980206086231, 82.898068362003];

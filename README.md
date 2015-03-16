@@ -3,7 +3,7 @@ Mock for ```navigator.geolocation```.
 
 ### [Russian readme](https://github.com/2gis/mock-geolocation/blob/master/README_RU.md) ###
 
-### [Demo](http://2gis.github.io/geolocate/) ###
+### [Demo](http://2gis.github.io/mock-geolocation/) ###
 
 ```javascript
 var point = [54.980206086231, 82.898068362003];
