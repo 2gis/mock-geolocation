@@ -1,6 +1,6 @@
 {
   "name": "mock-geolocation",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Mock for navigator.geolocation API",
   "author": {
     "name": "Mstislav Zhivodkov",
