@@ -24,7 +24,8 @@
             Object.defineProperty(navigator, 'geolocation', {
                 get: function() {
                     return object;
-                }
+                },
+                configurable: true
             });
         } else if (navigator.__defineGetter__) {
             navigator.__defineGetter__('geolocation', function() {
